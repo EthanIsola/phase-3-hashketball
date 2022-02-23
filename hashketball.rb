@@ -127,3 +127,99 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(name)
+  home = game_hash[:home][:players].filter do |player|
+    player[:player_name] === name
+  end
+  away = game_hash[:away][:players].filter do |player|
+    player[:player_name] === name
+  end
+  if home != [] 
+    home[0][:points]
+  else 
+    away[0][:points]
+  end
+end
+
+def shoe_size(name)
+  home = game_hash[:home][:players].filter do |player|
+    player[:player_name] === name
+  end
+  away = game_hash[:away][:players].filter do |player|
+    player[:player_name] === name
+  end
+  if home != [] 
+    home[0][:shoe]
+  else 
+    away[0][:shoe]
+  end
+end
+
+def team_colors(name)
+  colors = ""
+  if name == game_hash[:home][:team_name]
+    game_hash[:home][:colors].each do |color|
+      puts color
+    end
+  else
+    game_hash[:away][:colors].each do |color|
+      puts color
+    end
+  end
+end
+
+def team_names
+  teams = []
+  teams.push(game_hash[:home][:team_name])
+  teams.push(game_hash[:away][:team_name])
+  teams
+end
+
+def player_numbers(name)
+  numbers = []
+  if name == game_hash[:home][:team_name]
+    game_hash[:home][:players].each do |player|
+      numbers.push(player[:number])
+    end
+  else
+    game_hash[:away][:players].each do |player|
+      numbers.push(player[:number])
+    end
+  end
+  numbers
+end
+
+def player_stats(name)
+  home = game_hash[:home][:players].filter do |player|
+    player[:player_name] === name
+  end
+  away = game_hash[:away][:players].filter do |player|
+    player[:player_name] === name
+  end
+  if home != [] 
+    home[0].each do |stat|
+      puts stat
+    end
+  else 
+    away[0].each do |stat|
+      puts stat
+    end
+  end
+end
+
+def big_shoe_rebounds
+  biggest_shoe_man = [{shoe: 0}]
+  game_hash[:home][:players].each do |player|
+    if player[:shoe] > biggest_shoe_man[0][:shoe]
+      biggest_shoe_man.shift()
+      biggest_shoe_man.push(player)
+    end
+  end
+  game_hash[:away][:players].each do |player|
+    if player[:shoe] > biggest_shoe_man[0][:shoe]
+      biggest_shoe_man.shift()
+      biggest_shoe_man.push(player)
+    end
+  end
+  biggest_shoe_man[0][:rebounds]
+end
